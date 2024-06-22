@@ -3,7 +3,8 @@ package br.com.pet.control.controller;
 import br.com.pet.control.Application;
 import br.com.pet.control.logger.LogExecutionTime;
 import br.com.pet.control.model.PetEntity;
-import br.com.pet.control.services.PetServices;
+import br.com.pet.control.model.PetOwnerEntity;
+import br.com.pet.control.services.PetOwnerServices;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -29,16 +30,16 @@ public class OwnerController {
 	private static final Logger logger 
     = LoggerFactory.getLogger(Application.class);
     @Autowired	
-	private PetServices service;
+	private PetOwnerServices service;
     @LogExecutionTime
 	@GetMapping( produces= MediaType.APPLICATION_JSON_VALUE)
-	@Cacheable(value = "listaPets", key ="#id", condition="#p0!=null")
-	@Operation(summary = "Show all pets on this API", description= "Show all pets on this API",
+	@Cacheable(value = "listaOwners", key ="#id", condition="#p0!=null")
+	@Operation(summary = "Show all clients on this API", description= "Show all clients on this API",
 
 	responses = {
 			@ApiResponse(description ="Success", responseCode = "200", content = {@Content(
 					mediaType = "application/json",
-					array = @ArraySchema (schema = @Schema( implementation = PetEntity.class))
+					array = @ArraySchema (schema = @Schema( implementation = PetOwnerEntity.class))
 			)
 
 					}),
@@ -46,17 +47,17 @@ public class OwnerController {
 			@ApiResponse(description ="Bad Request", responseCode = "400", content = @Content),
 			@ApiResponse(description ="Internal server error", responseCode = "500", content = @Content)
 	})
-	public List<PetEntity> findAll()	 {
+	public List<PetOwnerEntity> findAll()	 {
     	return service.findAll();
 	}
 	@GetMapping(value = "/{id}",
 			produces= MediaType.APPLICATION_JSON_VALUE)
-	@Operation(summary = "Find one pet by id", description= "Find one pet by id",
+	@Operation(summary = "Find one client by id", description= "Find one client by id",
 
 			responses = {
 					@ApiResponse(description ="Success", responseCode = "200", content = {@Content(
 							mediaType = "application/json",
-							array = @ArraySchema (schema = @Schema( implementation = PetEntity.class))
+							array = @ArraySchema (schema = @Schema( implementation = PetOwnerEntity.class))
 					)
 
 					}),
@@ -64,7 +65,7 @@ public class OwnerController {
 					@ApiResponse(description ="Bad Request", responseCode = "400", content = @Content),
 					@ApiResponse(description ="Internal server error", responseCode = "500", content = @Content)
 			})
-	public PetEntity findByid(@PathVariable(value = "id") Long id)
+	public PetOwnerEntity findByid(@PathVariable(value = "id") Long id)
 	{
 
 		return service.findByid(id);
@@ -84,10 +85,10 @@ public class OwnerController {
 					@ApiResponse(description ="Bad Request", responseCode = "400", content = @Content),
 					@ApiResponse(description ="Internal server error", responseCode = "500", content = @Content)
 			})
-	public PetEntity create(@RequestBody PetEntity pet)
+	public PetOwnerEntity create(@RequestBody PetOwnerEntity owner)
 	{
 
-		  return service.create(pet);
+		  return service.create(owner);
 	}
 	@PutMapping(
 			   produces= MediaType.APPLICATION_JSON_VALUE,
@@ -105,10 +106,10 @@ public class OwnerController {
 					@ApiResponse(description ="Bad Request", responseCode = "400", content = @Content),
 					@ApiResponse(description ="Internal server error", responseCode = "500", content = @Content)
 			})
-	public PetEntity update(@RequestBody PetEntity pet)
+	public PetOwnerEntity update(@RequestBody PetOwnerEntity owner)
 	{
 
-		return service.update(pet);
+		return service.update(owner);
 
 	}
 	@DeleteMapping(value = "/{id}")

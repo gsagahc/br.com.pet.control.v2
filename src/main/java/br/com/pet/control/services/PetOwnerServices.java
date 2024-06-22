@@ -2,7 +2,8 @@ package br.com.pet.control.services;
 
 import br.com.pet.control.Application;
 import br.com.pet.control.exceptions.ResourceNotFoundException;
-import br.com.pet.control.model.PetEntity;
+import br.com.pet.control.model.PetOwnerEntity;
+import br.com.pet.control.repository.PetOwnerRepository;
 import br.com.pet.control.repository.PetRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,50 +19,46 @@ public class PetOwnerServices {
     = LoggerFactory.getLogger(Application.class);
    
    @Autowired
-   PetRepository petRepository;
+   PetOwnerRepository petOwnerRepository;
     
-   public List<PetEntity> findAll() {
-	    logger.info("Showing all pets!");
-		return petRepository.findAll();
+   public List<PetOwnerEntity> findAll() {
+	    logger.info("Showing all clients!");
+		return petOwnerRepository.findAll();
 
 
-
-   	
    }
   
-	public PetEntity create(PetEntity pet) {
-    	logger.info("Creating one pet!"+" name:"+pet.getPetName());
-    	return petRepository.save(pet);
+	public PetOwnerEntity create(PetOwnerEntity owner) {
+    	logger.info("Creating one Pet Owner!"+" name:"+owner.getName());
+    	return petOwnerRepository.save(owner);
     	
     }
-    public PetEntity update(PetEntity pet) {
-    	logger.info("Updating one pet! id:"+pet.getId()+" Name:"+pet.getPetName());
-    	PetEntity entity = petRepository.findById(pet.getId())
-     			.orElseThrow(()->new ResourceNotFoundException("Not records for ths id:"+pet.getId()));
-    	entity.setPetName(pet.getPetName());
-    	entity.setPetBreed(pet.getPetBreed());
-    	entity.setPetKind(pet.getPetKind());
-    	entity.setPetOwner(pet.getPetOwner());
-    	entity.setAddress(pet.getAddress());
-    	entity.setEmail(pet.getEmail());
-    	entity.setPhoneNumber(pet.getPhoneNumber());
-    	entity.setGender(pet.getGender());
-    	return petRepository.save(entity);
+    public PetOwnerEntity update(PetOwnerEntity owner) {
+    	logger.info("Updating one pet! id:"+owner.getId()+" Name:"+owner.getName());
+    	PetOwnerEntity entity = petOwnerRepository.findById(owner.getId())
+     			.orElseThrow(()->new ResourceNotFoundException("Not records for ths id:"+owner.getId()));
+    	entity.setName(owner.getName());
+    	entity.setAddress(owner.getAddress());
+    	entity.setGender(owner.getGender());
+    	entity.setCpf(owner.getCpf());
+    	entity.setPhone_number(owner.getPhone_number());
+    	entity.setEmail(owner.getEmail());
+    	return petOwnerRepository.save(entity);
     	
     }
   
-	public PetEntity findByid(Long id) {
+	public PetOwnerEntity findByid(Long id) {
     	logger.info("Finding one pet!"+id);
 
-		return petRepository.findById(id)
+		return petOwnerRepository.findById(id)
 				.orElseThrow(()->new ResourceNotFoundException("Not records for ths id:"+id));
 
     }
 	public void delete(Long id) {
 		logger.info("Deleting one pet, id:" + id);
-		PetEntity entity = petRepository.findById(id)
+		PetOwnerEntity entity = petOwnerRepository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException("Not records for ths id:"+id));
-		 petRepository.delete(entity);
+		 petOwnerRepository.delete(entity);
 
 	}
 }
