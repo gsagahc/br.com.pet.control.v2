@@ -3,6 +3,7 @@ package br.com.pet.control.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.Cascade;
 
 import java.io.Serializable;
 
@@ -21,12 +22,6 @@ public class AddressEntity implements  Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@OneToOne(fetch = FetchType.EAGER)
-	@JoinTable(name = "ownerpet", joinColumns = {@JoinColumn (name = "owner_id")},
-			inverseJoinColumns = {@JoinColumn (name = "id")}
-	)
-	private Long petOwner;
-
 	@Column(name = "address")
 	private String address;
 
@@ -37,11 +32,6 @@ public class AddressEntity implements  Serializable {
 	private String uf;
 
 
-	public void setPetOwner(PetOwnerEntity petOwner) {
-		Long id = petOwner.getId();
-		this.petOwner = id;
-
-	}
 }
 
 	

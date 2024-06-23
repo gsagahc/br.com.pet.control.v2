@@ -1,9 +1,9 @@
 package br.com.pet.control.model;
 
 
+
 import jakarta.persistence.*;
 import lombok.*;
-
 import java.io.Serializable;
 import java.util.List;
 
@@ -37,10 +37,10 @@ public class PetOwnerEntity implements  Serializable {
 	@Column(name = "phone_number")
 	private String phone_number;
 
-	@OneToOne(cascade = CascadeType.DETACH)
-	@JoinTable(name = "address", joinColumns = {@JoinColumn (name = "id")},
-			inverseJoinColumns = {@JoinColumn (name = "owner_id")})
-		private AddressEntity address;
+
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name="id_address", referencedColumnName = "id")
+	private AddressEntity ownerAddress;
 
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "owner", cascade = CascadeType.ALL)
