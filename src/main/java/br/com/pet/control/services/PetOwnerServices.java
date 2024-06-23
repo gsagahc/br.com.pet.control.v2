@@ -2,7 +2,9 @@ package br.com.pet.control.services;
 
 import br.com.pet.control.Application;
 import br.com.pet.control.exceptions.ResourceNotFoundException;
+import br.com.pet.control.model.AddressEntity;
 import br.com.pet.control.model.PetOwnerEntity;
+import br.com.pet.control.repository.AddressRepository;
 import br.com.pet.control.repository.PetOwnerRepository;
 import br.com.pet.control.repository.PetRepository;
 import org.slf4j.Logger;
@@ -20,6 +22,9 @@ public class PetOwnerServices {
    
    @Autowired
    PetOwnerRepository petOwnerRepository;
+
+   @Autowired
+	AddressRepository addressRepository;
     
    public List<PetOwnerEntity> findAll() {
 	    logger.info("Showing all clients!");
@@ -30,6 +35,8 @@ public class PetOwnerServices {
   
 	public PetOwnerEntity create(PetOwnerEntity owner) {
     	logger.info("Creating one Pet Owner!"+" name:"+owner.getName());
+		AddressEntity address = owner.getAddress();
+		addressRepository.save(address);
     	return petOwnerRepository.save(owner);
     	
     }

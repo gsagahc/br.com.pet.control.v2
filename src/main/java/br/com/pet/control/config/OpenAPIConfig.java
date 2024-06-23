@@ -15,7 +15,7 @@ public class OpenAPIConfig {
     public OpenAPI customOpenAPI(){
         return new OpenAPI()
                 .info(new Info()
-                        .title("API for Pet Control")
+                        .title("API for Pet Control version 2.0")
                         .version("1.0.1")
                         .description("CRUD for pets control with authentication")
                         .termsOfService("")

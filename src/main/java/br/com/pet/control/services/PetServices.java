@@ -42,11 +42,8 @@ public class PetServices {
     	entity.setPetName(pet.getPetName());
     	entity.setPetBreed(pet.getPetBreed());
     	entity.setPetKind(pet.getPetKind());
-    	entity.setPetOwner(pet.getPetOwner());
-    	entity.setAddress(pet.getAddress());
-    	entity.setEmail(pet.getEmail());
-    	entity.setPhoneNumber(pet.getPhoneNumber());
-    	entity.setGender(pet.getGender());
+    	entity.setOwner(pet.getOwner());
+      	entity.setGender(pet.getGender());
     	return petRepository.save(entity);
     	
     }

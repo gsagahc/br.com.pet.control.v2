@@ -25,7 +25,7 @@ public class AddressEntity implements  Serializable {
 	@JoinTable(name = "ownerpet", joinColumns = {@JoinColumn (name = "owner_id")},
 			inverseJoinColumns = {@JoinColumn (name = "id")}
 	)
-	private PetOwnerEntity petOwner;
+	private Long petOwner;
 
 	@Column(name = "address")
 	private String address;
@@ -34,9 +34,14 @@ public class AddressEntity implements  Serializable {
 	private String city;
 
 	@Column(name = "uf")
-	private Boolean uf;
+	private String uf;
 
 
+	public void setPetOwner(PetOwnerEntity petOwner) {
+		Long id = petOwner.getId();
+		this.petOwner = id;
+
+	}
 }
 
 	

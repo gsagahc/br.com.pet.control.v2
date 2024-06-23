@@ -72,7 +72,7 @@ public class OwnerController {
 	}
 	@PostMapping(produces= MediaType.APPLICATION_JSON_VALUE,
 			     consumes =MediaType.APPLICATION_JSON_VALUE)
-	@Operation(summary = "Create new pet", description= "Create new pet",
+	@Operation(summary = "Create new Owner", description= "Create new Owner",
 
 			responses = {
 					@ApiResponse(description ="Success", responseCode = "200", content = {@Content(
@@ -93,7 +93,7 @@ public class OwnerController {
 	@PutMapping(
 			   produces= MediaType.APPLICATION_JSON_VALUE,
 			   consumes =MediaType.APPLICATION_JSON_VALUE)
-	@Operation(summary = "Update a pet information", description= "Update a pet information",
+	@Operation(summary = "Update a pet information", description= "Update a owner information",
 
 			responses = {
 					@ApiResponse(description ="Success", responseCode = "200", content = {@Content(
@@ -113,7 +113,7 @@ public class OwnerController {
 
 	}
 	@DeleteMapping(value = "/{id}")
-	@Operation(summary = "Delete a pet by id", description= "Delete a pet by id",
+	@Operation(summary = "Delete a owner by id", description= "Delete a owner by id",
 
 			responses = {
 					@ApiResponse(description ="Success", responseCode = "200", content = {@Content(

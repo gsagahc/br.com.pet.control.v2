@@ -24,12 +24,10 @@ public class  MockPet {
 	 
 	  public PetEntity mockEntity(Integer number) {
 		  PetEntity pet = new PetEntity();
-	        pet.setAddress("Addres Test" + number);
 	        pet.setPetName("Name Pet Test" + number);
 	        pet.setGender(((number % 2)==0) ? "Male" : "Female");
 	        pet.setId(number.longValue());
 	        pet.setPetBreed("Breed Test" + number);
-	        pet.setPetOwner("Owner Test" + number);
 	        pet.setPetKind("Kind Test" + number);
 	        return pet;
 	    }

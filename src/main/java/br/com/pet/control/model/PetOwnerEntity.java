@@ -13,7 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 @EqualsAndHashCode
 @Entity
-@Table(name = "ownerpet")
+@Table(name = "owner_pet")
 public class PetOwnerEntity implements  Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -32,22 +32,18 @@ public class PetOwnerEntity implements  Serializable {
 	private String email;
 
 	@Column(name = "gender")
-	private Boolean gender;
+	private String gender;
 
 	@Column(name = "phone_number")
-	private Boolean phone_number;
+	private String phone_number;
+
+	@OneToOne(cascade = CascadeType.DETACH)
+	@JoinTable(name = "address", joinColumns = {@JoinColumn (name = "id")},
+			inverseJoinColumns = {@JoinColumn (name = "owner_id")})
+		private AddressEntity address;
 
 
-	@OneToOne(fetch = FetchType.EAGER)
-	@JoinTable(name = "address", joinColumns = {@JoinColumn (name = "owner_id")},
-		inverseJoinColumns = {@JoinColumn (name = "id")}
-	)
-	private AddressEntity address;
-
-	@OneToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "pet_cad", joinColumns = {@JoinColumn (name = "pet_owner")},
-			inverseJoinColumns = {@JoinColumn (name = "id")}
-	)
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "owner", cascade = CascadeType.ALL)
 	private List<PetEntity> petList;
 
 

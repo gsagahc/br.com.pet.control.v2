@@ -1,4 +1,4 @@
-CREATE TABLE `ownerpet` (
+CREATE TABLE `owner_pet` (
   `id` bigint NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL,
   `cpf` varchar(12) NOT NULL,
