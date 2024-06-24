@@ -4,7 +4,7 @@
 
 -Migrations
 
--Relacionamentos: @OneToOne, @OneToMany
+-Relacionamentos: @OneToOne, @OneToMany, @ManyToOne
 
 -Swagger (http://localhost:8080/swagger-ui/index.html#/) (/v3/api-docs)
 
