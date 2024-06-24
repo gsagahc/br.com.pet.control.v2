@@ -6,5 +6,6 @@ CREATE TABLE `owner_pet` (
   `gender` varchar(255) DEFAULT NULL ,
   `phone_number` varchar(20) DEFAULT NULL,
   `id_address` bigint DEFAULT NULL,
-  PRIMARY KEY (`id`)
+   PRIMARY KEY (`id`),
+   UNIQUE KEY uk_cpf (cpf)
 ) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;

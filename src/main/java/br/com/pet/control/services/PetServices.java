@@ -42,7 +42,7 @@ public class PetServices {
     	entity.setPetName(pet.getPetName());
     	entity.setPetBreed(pet.getPetBreed());
     	entity.setPetKind(pet.getPetKind());
-    	entity.setOwner(pet.getOwner());
+    	entity.setFk_cpf(pet.getFk_cpf());
       	entity.setGender(pet.getGender());
     	return petRepository.save(entity);
     	

@@ -3,6 +3,7 @@ package br.com.pet.control.model;
 
 import br.com.pet.control.controller.dto.RegisterDTO;
 import jakarta.persistence.*;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -11,6 +12,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+@Getter
+@Setter
+@AllArgsConstructor
 @Entity
 @Table(name = "users")
 public class UserEntity implements UserDetails, Serializable {
@@ -50,7 +54,7 @@ public class UserEntity implements UserDetails, Serializable {
 	
 	public UserEntity() {}
 
-	
+
 	public UserEntity( RegisterDTO data,String encriptedPaswword) {
 		this.login = data.login();
 		this.fullName = data.fullName();
@@ -59,7 +63,7 @@ public class UserEntity implements UserDetails, Serializable {
 		this.accountNonLocked = data.accountNonLocked();
 		this.credentialsNonExpired = data.credentialsNonExpired();
 		this.enabled = data.enabled();
-		
+
 	}
 
 	public UserEntity(String login, String fullName, String password, Boolean accountNonExpired, Boolean accountNonLocked, Boolean credentialsNonExpired, Boolean enabled) {
@@ -83,7 +87,7 @@ public class UserEntity implements UserDetails, Serializable {
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-	
+
 		return this.permissions;
 	}
 
@@ -120,7 +124,7 @@ public class UserEntity implements UserDetails, Serializable {
 		this.id = id;
 	}
 
-	
+
 	public void setUserName(String userName) {
 		this.login = userName;
 	}
