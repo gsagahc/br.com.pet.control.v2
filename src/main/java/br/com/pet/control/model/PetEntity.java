@@ -42,7 +42,7 @@ public class PetEntity implements Serializable{
 	@ApiModelProperty("Pet owner")
 	@Column( nullable = false)
 	@JsonProperty("owner_cpf")
-	private Long fk_cpf;
+	private String fk_cpf;
 
 
 	
