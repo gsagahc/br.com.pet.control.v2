@@ -3,6 +3,7 @@ package br.com.pet.control.model;
 
 
 import java.io.Serializable;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -40,9 +41,9 @@ public class PetEntity implements Serializable{
 	@JsonProperty("Pet_gender")
 	private String gender;
 	@ApiModelProperty("Pet owner")
-	@Column( nullable = false)
-	@JsonProperty("owner_cpf")
-	private String fk_cpf;
+	@JsonProperty("owner")
+	private Long owner;
+
 
 
 	

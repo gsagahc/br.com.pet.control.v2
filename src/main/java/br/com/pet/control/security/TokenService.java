@@ -19,7 +19,8 @@ import java.time.ZoneOffset;
 @Service
 public class TokenService {
     @Value("${br.com.pet.control.jwt.secret}")
-    private String secret;
+    private String secret ;
+
 
     public String generateToken(UserEntity user){
 
@@ -50,6 +51,6 @@ public class TokenService {
     }
 
     private Instant genExpirationDate(){
-        return LocalDateTime.now().plusHours(2).toInstant(ZoneOffset.of("-03:00"));
+        return LocalDateTime.now().plusHours(1).toInstant(ZoneOffset.of("-03:00"));
     }
 }

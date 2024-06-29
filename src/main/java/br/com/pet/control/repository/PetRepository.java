@@ -5,11 +5,10 @@ import org.springframework.stereotype.Repository;
 
 import br.com.pet.control.model.PetEntity;
 
-import java.util.Optional;
+import java.util.List;
 
 
 @Repository
 public interface PetRepository extends JpaRepository<PetEntity, Long>{
-
 
 }

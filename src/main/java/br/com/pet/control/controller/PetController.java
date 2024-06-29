@@ -1,6 +1,7 @@
 package br.com.pet.control.controller;
 
 import br.com.pet.control.Application;
+import br.com.pet.control.dto.PetDTO;
 import br.com.pet.control.logger.LogExecutionTime;
 import br.com.pet.control.model.PetEntity;
 import br.com.pet.control.services.PetServices;
@@ -46,7 +47,7 @@ public class PetController {
 			@ApiResponse(description ="Bad Request", responseCode = "400", content = @Content),
 			@ApiResponse(description ="Internal server error", responseCode = "500", content = @Content)
 	})
-	public List<PetEntity> findAll()	 {
+	public List<PetDTO> findAll()	 {
     	return service.findAll();
 	}
 	@GetMapping(value = "/{id}",
@@ -64,7 +65,7 @@ public class PetController {
 					@ApiResponse(description ="Bad Request", responseCode = "400", content = @Content),
 					@ApiResponse(description ="Internal server error", responseCode = "500", content = @Content)
 			})
-	public PetEntity findByid(@PathVariable(value = "id") Long id)
+	public PetDTO findByid(@PathVariable(value = "id") Long id)
 	{
 
 		return service.findByid(id);

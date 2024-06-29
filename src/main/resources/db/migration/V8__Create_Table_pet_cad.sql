@@ -4,8 +4,8 @@ CREATE TABLE `pet_cad` (
   `pet_breed` varchar(50) NOT NULL,
   `pet_kind` varchar(50) NOT NULL,
   `pet_name` varchar(80) NOT NULL,
-  `fk_cpf` varchar(12) NOT NULL,
+  `owner` bigint NOT NULL,
    PRIMARY KEY (id),
-   KEY fk_owner (fk_cpf),
-   CONSTRAINT fk_owner FOREIGN KEY (fk_cpf) REFERENCES owner_pet (cpf)
+   KEY fk_owner (owner),
+   CONSTRAINT fkowner FOREIGN KEY (owner) REFERENCES owner_pet (id)
  ) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;

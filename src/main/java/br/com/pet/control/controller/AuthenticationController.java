@@ -1,9 +1,9 @@
 package br.com.pet.control.controller;
 
 
-import br.com.pet.control.controller.dto.AuthenticationDTO;
-import br.com.pet.control.controller.dto.LoginResponseDTO;
-import br.com.pet.control.controller.dto.RegisterDTO;
+import br.com.pet.control.dto.AuthenticationDTO;
+import br.com.pet.control.dto.LoginResponseDTO;
+import br.com.pet.control.dto.RegisterDTO;
 import br.com.pet.control.logger.LogExecutionTime;
 import br.com.pet.control.model.PetEntity;
 import br.com.pet.control.model.UserEntity;

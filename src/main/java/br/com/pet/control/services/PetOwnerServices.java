@@ -2,8 +2,10 @@ package br.com.pet.control.services;
 
 import br.com.pet.control.Application;
 import br.com.pet.control.exceptions.ResourceNotFoundException;
+import br.com.pet.control.model.PetEntity;
 import br.com.pet.control.model.PetOwnerEntity;
 import br.com.pet.control.repository.PetOwnerRepository;
+import br.com.pet.control.repository.PetRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,12 +21,14 @@ public class PetOwnerServices {
    
    @Autowired
    PetOwnerRepository petOwnerRepository;
+   @Autowired
+   PetRepository petRepository;
 
 
     
    public List<PetOwnerEntity> findAll() {
 	    logger.info("Showing all clients!");
-		return petOwnerRepository.findAll();
+	    return petOwnerRepository.findAll();
 
 
    }
@@ -49,7 +53,7 @@ public class PetOwnerServices {
     }
   
 	public PetOwnerEntity findByid(Long id) {
-    	logger.info("Finding one pet!"+id);
+    	logger.info("Finding one Client!"+id);
 
 		return petOwnerRepository.findById(id)
 				.orElseThrow(()->new ResourceNotFoundException("Not records for ths id:"+id));

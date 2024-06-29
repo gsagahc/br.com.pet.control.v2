@@ -45,7 +45,7 @@ public class PetOwnerEntity implements  Serializable {
 	@JsonProperty("owner_address")
 	private AddressEntity ownerAddress;
 	@ApiModelProperty("List of pets")
-	@OneToMany(mappedBy = "fk_cpf", orphanRemoval = true, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "owner", orphanRemoval = true, cascade = CascadeType.ALL)
 	private List<PetEntity> petList;
 
 

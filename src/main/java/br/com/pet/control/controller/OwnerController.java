@@ -24,7 +24,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/owner")
-@Tag(name="Pets", description="End points for managing clients")
+@Tag(name="Owners", description="End points for managing clients")
 public class OwnerController {
 
 	private static final Logger logger 

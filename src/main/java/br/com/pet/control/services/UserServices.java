@@ -1,7 +1,7 @@
 package br.com.pet.control.services;
 
 import br.com.pet.control.Application;
-import br.com.pet.control.controller.dto.RegisterDTO;
+import br.com.pet.control.dto.RegisterDTO;
 import br.com.pet.control.model.UserEntity;
 import br.com.pet.control.repository.UserRepository;
 import org.slf4j.Logger;

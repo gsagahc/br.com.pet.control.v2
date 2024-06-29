@@ -1,7 +1,7 @@
 package br.com.pet.control.model;
 
 
-import br.com.pet.control.controller.dto.RegisterDTO;
+import br.com.pet.control.dto.RegisterDTO;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;

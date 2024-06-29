@@ -1,28 +1,20 @@
 package integration;
 
 
-import br.com.pet.control.controller.dto.RegisterDTO;
 import br.com.pet.control.model.PetEntity;
 import br.com.pet.control.model.UserEntity;
 import br.com.pet.control.repository.PetRepository;
 import br.com.pet.control.repository.UserRepository;
 import br.com.pet.control.security.TokenService;
-import org.junit.Before;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.mockito.BDDMockito;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
-
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;

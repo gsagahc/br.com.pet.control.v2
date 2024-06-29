@@ -1,16 +1,20 @@
 package br.com.pet.control.services;
 
 import br.com.pet.control.Application;
+import br.com.pet.control.dto.PetDTO;
 import br.com.pet.control.exceptions.ResourceNotFoundException;
 import br.com.pet.control.model.PetEntity;
+import br.com.pet.control.model.PetOwnerEntity;
+import br.com.pet.control.repository.PetOwnerRepository;
 import br.com.pet.control.repository.PetRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Optional;
 
 
 @Service
@@ -20,20 +24,23 @@ public class PetServices {
    
    @Autowired
    PetRepository petRepository;
+   @Autowired
+   PetOwnerRepository petOwnerRepository;
+   @Autowired
+   PetOwnerServices petOwnerServices;
+
     
-   public List<PetEntity> findAll() {
+   public List<PetDTO> findAll() {
 	    logger.info("Showing all pets!");
-		return petRepository.findAll();
+        List<PetDTO> dtoList= createPetDtoList(petRepository.findAll());
+		return dtoList;
 
-
-
-   	
    }
   
 	public PetEntity create(PetEntity pet) {
     	logger.info("Creating one pet!"+" name:"+pet.getPetName());
-    	return petRepository.save(pet);
-    	
+     	  return petRepository.save(pet);
+
     }
     public PetEntity update(PetEntity pet) {
     	logger.info("Updating one pet! id:"+pet.getId()+" Name:"+pet.getPetName());
@@ -42,17 +49,17 @@ public class PetServices {
     	entity.setPetName(pet.getPetName());
     	entity.setPetBreed(pet.getPetBreed());
     	entity.setPetKind(pet.getPetKind());
-    	entity.setFk_cpf(pet.getFk_cpf());
+    	entity.setOwner(pet.getOwner());
       	entity.setGender(pet.getGender());
     	return petRepository.save(entity);
     	
     }
   
-	public PetEntity findByid(Long id) {
+	public PetDTO findByid(Long id) {
     	logger.info("Finding one pet!"+id);
-
-		return petRepository.findById(id)
-				.orElseThrow(()->new ResourceNotFoundException("Not records for ths id:"+id));
+        PetDTO dto =createPetDto(petRepository.findById(id)
+				.orElseThrow(()->new ResourceNotFoundException("Not records for ths id:"+id)));
+		return dto;
 
     }
 	public void delete(Long id) {
@@ -61,5 +68,37 @@ public class PetServices {
 				.orElseThrow(() -> new ResourceNotFoundException("Not records for ths id:"+id));
 		 petRepository.delete(entity);
 
+	}
+	public List<PetDTO> createPetDtoList(List<PetEntity> petlist){
+	    List<PetDTO> dtoList = new ArrayList<>(List.of());
+		for (PetEntity pet  : petlist) {
+			PetOwnerEntity ownerEntity = petOwnerServices.findByid(pet.getOwner());
+			PetDTO dto = new PetDTO(
+					pet.getId(),
+					pet.getPetName(),
+					pet.getPetBreed(),
+					pet.getPetKind(),
+					pet.getGender(),
+					pet.getOwner(),
+					ownerEntity.getName(),
+					ownerEntity.getCpf());
+			dtoList.add(dto);
+		}
+		return dtoList;
+	}
+	public PetDTO createPetDto(PetEntity pet){
+		PetOwnerEntity ownerEntity = petOwnerServices.findByid(pet.getOwner());
+		PetDTO dto = new PetDTO(
+		    		pet.getId(),
+					pet.getPetName(),
+					pet.getPetBreed(),
+					pet.getPetKind(),
+					pet.getGender(),
+					pet.getOwner(),
+					ownerEntity.getName(),
+					ownerEntity.getCpf());
+
+
+		return dto;
 	}
 }
