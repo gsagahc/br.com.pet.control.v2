@@ -2,6 +2,7 @@ package br.com.pet.control.services;
 
 import br.com.pet.control.Application;
 import br.com.pet.control.dto.PetDTO;
+import br.com.pet.control.dto.PetOwnerDTO;
 import br.com.pet.control.exceptions.ResourceNotFoundException;
 import br.com.pet.control.model.PetEntity;
 import br.com.pet.control.model.PetOwnerEntity;
@@ -72,7 +73,7 @@ public class PetServices {
 	public List<PetDTO> createPetDtoList(List<PetEntity> petlist){
 	    List<PetDTO> dtoList = new ArrayList<>(List.of());
 		for (PetEntity pet  : petlist) {
-			PetOwnerEntity ownerEntity = petOwnerServices.findByid(pet.getOwner());
+			PetOwnerDTO ownerDto = petOwnerServices.findByid(pet.getOwner());
 			PetDTO dto = new PetDTO(
 					pet.getId(),
 					pet.getPetName(),
@@ -80,14 +81,14 @@ public class PetServices {
 					pet.getPetKind(),
 					pet.getGender(),
 					pet.getOwner(),
-					ownerEntity.getName(),
-					ownerEntity.getCpf());
+					ownerDto.name() ,
+					ownerDto.cpf());
 			dtoList.add(dto);
 		}
 		return dtoList;
 	}
 	public PetDTO createPetDto(PetEntity pet){
-		PetOwnerEntity ownerEntity = petOwnerServices.findByid(pet.getOwner());
+		PetOwnerDTO ownerDto = petOwnerServices.findByid(pet.getOwner());
 		PetDTO dto = new PetDTO(
 		    		pet.getId(),
 					pet.getPetName(),
@@ -95,8 +96,8 @@ public class PetServices {
 					pet.getPetKind(),
 					pet.getGender(),
 					pet.getOwner(),
-					ownerEntity.getName(),
-					ownerEntity.getCpf());
+				    ownerDto.name(),
+				    ownerDto.cpf());
 
 
 		return dto;
