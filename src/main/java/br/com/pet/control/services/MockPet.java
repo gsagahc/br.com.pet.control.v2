@@ -3,6 +3,8 @@ package br.com.pet.control.services;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.pet.control.dto.PetDTO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.pet.control.model.PetEntity;
@@ -11,6 +13,8 @@ import br.com.pet.control.model.PetEntity;
 
 @Service
 public class  MockPet {
+	@Autowired
+	PetServices petServices;
 	public PetEntity mockEntity() {
         return mockEntity(0);
     }
@@ -23,13 +27,14 @@ public class  MockPet {
 	    }
 	 
 	  public PetEntity mockEntity(Integer number) {
-		  PetEntity pet = new PetEntity();
-	        pet.setPetName("Name Pet Test" + number);
-	        pet.setGender(((number % 2)==0) ? "Male" : "Female");
-	        pet.setId(number.longValue());
-	        pet.setPetBreed("Breed Test" + number);
-	        pet.setPetKind("Kind Test" + number);
-	        return pet;
+		    PetEntity entity = new PetEntity();
+			entity.setPetName("Name Pet Test" + number);
+		    entity.setPetBreed("Breed Test" + number);
+			entity.setPetKind("Kind Test" + number);
+			entity.setGender(((number % 2)==0) ? "Male" : "Female");
+			entity.setId(number.longValue());
+			entity.setOwner(27L);
+		    return entity;
 	    }
 		
 

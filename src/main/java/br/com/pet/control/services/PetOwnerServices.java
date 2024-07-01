@@ -25,10 +25,6 @@ public class PetOwnerServices {
    
    @Autowired
    PetOwnerRepository petOwnerRepository;
-   @Autowired
-   PetRepository petRepository;
-   @Autowired
-   AddressServices addressServices;
 
     
    public List<PetOwnerDTO> findAll() {
@@ -74,7 +70,7 @@ public class PetOwnerServices {
 	public List<PetOwnerDTO> createPetOwnerDtoList(List<PetOwnerEntity> ownerList){
 		List<PetOwnerDTO> dtoList = new ArrayList<>(List.of());
 
-		for (PetOwnerEntity owner  : ownerList) {
+    	for (PetOwnerEntity owner  : ownerList) {
 			PetOwnerDTO dto = new PetOwnerDTO(
 					owner.getId(),
 					owner.getName(),
@@ -84,7 +80,8 @@ public class PetOwnerServices {
 					owner.getPhone_number(),
 					owner.getOwnerAddress().getAddress(),
 					owner.getOwnerAddress().getCity(),
-					owner.getOwnerAddress().getUf());
+					owner.getOwnerAddress().getUf(),
+					owner.getPetList());
 			dtoList.add(dto);
 		}
 		return dtoList;
@@ -99,7 +96,8 @@ public class PetOwnerServices {
 					owner.getPhone_number(),
 					owner.getOwnerAddress().getAddress(),
 					owner.getOwnerAddress().getCity(),
-					owner.getOwnerAddress().getUf());
+					owner.getOwnerAddress().getUf(),
+			    	owner.getPetList());
 
 
 		return dto;

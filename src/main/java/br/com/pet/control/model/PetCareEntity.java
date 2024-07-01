@@ -8,7 +8,9 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -21,24 +23,28 @@ import java.util.Date;
 public class PetCareEntity implements Serializable{
 	private static final long serialVersionUID = 1L;
 	@Id
+	@ApiModelProperty("Pet Care Id")
+	@JsonProperty("Id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
 	@ManyToOne
 	@JoinColumn(name = "fk_pet")
-	@ApiModelProperty("Pet id")
-	@JsonProperty("petId")
+	@ApiModelProperty("Pet")
+	@JsonProperty("pet")
 	private PetEntity pet;
 
 	@ApiModelProperty("Care Date")
 	@Column(name="care_date", nullable = false)
 	@JsonProperty("care_date")
-	private Date careDate;
+	private LocalDateTime careDate;
 
 	@ApiModelProperty("Has grooming ('S','N')")
 	@Column(name="grooming")
 	@JsonProperty("grooming")
 	private String hasGrooming;
+
+
 
 
 

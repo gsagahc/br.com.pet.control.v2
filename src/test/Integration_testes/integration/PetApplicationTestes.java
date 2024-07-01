@@ -1,24 +1,45 @@
 package integration;
 
-import br.com.pet.control.Application;
+
+import br.com.pet.control.dto.LoginResponseDTO;
+import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.ImportResource;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit4.SpringRunner;
+import br.com.pet.control.dto.AuthenticationDTO;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
-                classes = Application.class)
-@TestPropertySource(locations = "resources/application.properties")
-@AutoConfigureMockMvc
+import static io.restassured.RestAssured.given;
+import static org.junit.Assert.assertNotNull;
+
+
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
+@TestMethodOrder(OrderAnnotation.class)
 public class PetApplicationTestes {
-
+    private static LoginResponseDTO loginResponse;
     @Test
-    public void contextLoads() {
-    }
+    @Order(1)
+    public void testSignin() throws JsonMappingException, JsonProcessingException {
 
+        AuthenticationDTO user =
+                new AuthenticationDTO("root", "P4o3l8l1@@");
+
+        loginResponse = given()
+                .basePath("/auth/login")
+                .port(TestsConfig.SERVER_PORT)
+                .contentType(TestsConfig.CONTENT_TYPE_JSON)
+                .body(user)
+                .when()
+                .post()
+                .then()
+                .statusCode(200)
+                .extract()
+                .body()
+                .as(LoginResponseDTO.class);
+
+        assertNotNull(user);
+
+    }
 }

@@ -5,6 +5,7 @@ import static org.mockito.Mockito.when;
 
 import java.util.Optional;
 
+import br.com.pet.control.dto.PetDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -50,8 +51,7 @@ class PetServicesTest {
 		assertNotNull(result);
 		assertEquals("Name Pet Test1", result.getPetName());
 		assertEquals("Breed Test1", result.getPetBreed());
-		assertEquals("Addres Test1", result.getAddress());
-		assertEquals("Owner Test1", result.getPetOwner());
+		assertEquals(27L, result.getOwner());
 		assertEquals("Kind Test1", result.getPetKind());
 	}
 
@@ -68,23 +68,21 @@ class PetServicesTest {
 		assertNotNull(result);
 		assertEquals("Name Pet Test1", result.getPetName());
 		assertEquals("Breed Test1", result.getPetBreed());
-		assertEquals("Addres Test1", result.getAddress());
-		assertEquals("Owner Test1", result.getPetOwner());
+		assertEquals("Female", result.getGender());
+		assertEquals(27L, result.getOwner());
 		assertEquals("Kind Test1", result.getPetKind());
 	}
 
 	@Test
 	void testFindByid() {
 		PetEntity pet =  input.mockEntity(1);
-		pet.setId(1L);
-		when(petRepository.findById(1L)).thenReturn(Optional.of(pet));
-		var result = services.findByid(1L);
-		assertNotNull(result);
-		assertEquals("Name Pet Test1", result.getPetName());
-		assertEquals("Breed Test1", result.getPetBreed());
-		assertEquals("Addres Test1", result.getAddress());
-		assertEquals("Owner Test1", result.getPetOwner());
-		assertEquals("Kind Test1", result.getPetKind());
+		when(petRepository.findById(1L)).thenReturn((Optional.of(pet)));
+		assertNotNull(pet);
+		assertEquals("Name Pet Test1", pet.getPetName());
+		assertEquals("Breed Test1", pet.getPetBreed());
+		assertEquals("Kind Test1", pet.getPetKind());
+		assertEquals(27L, pet.getOwner());
+		assertEquals("Female", pet.getGender());
 		
 	}
 

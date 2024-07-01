@@ -1,12 +1,11 @@
 package br.com.pet.control.controller;
 
 import br.com.pet.control.Application;
-import br.com.pet.control.logger.LogExecutionTime;
+import br.com.pet.control.dto.PetCareCreateDTO;
+import br.com.pet.control.dto.PetCareResultDTO;
 import br.com.pet.control.model.PetCareEntity;
 import br.com.pet.control.model.PetEntity;
-import br.com.pet.control.model.PetOwnerEntity;
 import br.com.pet.control.services.PetCareServices;
-import br.com.pet.control.services.PetOwnerServices;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -16,12 +15,9 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 
 @RestController
@@ -33,6 +29,27 @@ public class PetCareController {
     = LoggerFactory.getLogger(Application.class);
     @Autowired	
 	private PetCareServices service;
+
+	@GetMapping(value = "/{id}",
+			produces= MediaType.APPLICATION_JSON_VALUE)
+	@Operation(summary = "Find cares by pet id", description= "Find pet careby pet id",
+
+			responses = {
+					@ApiResponse(description ="Success", responseCode = "200", content = {@Content(
+							mediaType = "application/json",
+							array = @ArraySchema (schema = @Schema( implementation = PetEntity.class))
+					)
+
+					}),
+					@ApiResponse(description ="Forbiden", responseCode = "403", content = @Content),
+					@ApiResponse(description ="Bad Request", responseCode = "400", content = @Content),
+					@ApiResponse(description ="Internal server error", responseCode = "500", content = @Content)
+			})
+	public PetCareResultDTO findByid(@PathVariable(value = "id") Long id)
+	{
+
+		return service.findByPetid(id);
+	}
 
 
 	@PostMapping(produces= MediaType.APPLICATION_JSON_VALUE,
@@ -50,10 +67,12 @@ public class PetCareController {
 					@ApiResponse(description ="Bad Request", responseCode = "400", content = @Content),
 					@ApiResponse(description ="Internal server error", responseCode = "500", content = @Content)
 			})
-	public PetCareEntity create(@RequestBody PetCareEntity care)
+	public PetCareEntity create(@RequestBody PetCareCreateDTO care)
 	{
-	  return service.create(care);
+		 PetCareCreateDTO petcare = new PetCareCreateDTO(care.petId(),care.dateTime(), care.hasGrooming());
+	     return service.create(petcare);
 	}
+
 	@PutMapping(
 			   produces= MediaType.APPLICATION_JSON_VALUE,
 			   consumes =MediaType.APPLICATION_JSON_VALUE)

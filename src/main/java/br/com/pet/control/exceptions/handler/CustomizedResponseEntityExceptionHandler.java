@@ -1,5 +1,6 @@
 package br.com.pet.control.exceptions.handler;
 
+import br.com.pet.control.exceptions.BadRequestException;
 import br.com.pet.control.exceptions.ExceptionResponse;
 import br.com.pet.control.exceptions.ResourceNotFoundException;
 import br.com.pet.control.exceptions.UserNotFoundException;
@@ -55,6 +56,7 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
 		
 		return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
 	}
+
 	
 	
 

@@ -26,8 +26,6 @@ public class PetServices {
    @Autowired
    PetRepository petRepository;
    @Autowired
-   PetOwnerRepository petOwnerRepository;
-   @Autowired
    PetOwnerServices petOwnerServices;
 
     
@@ -102,4 +100,23 @@ public class PetServices {
 
 		return dto;
 	}
+
+	public List<PetDTO> convertPetToDTOList(List<PetEntity> petList) {
+			List<PetDTO> dtoList = new ArrayList<>(List.of());
+			for (PetEntity pet  : petList) {
+				PetOwnerDTO ownerDto = petOwnerServices.findByid(pet.getOwner());
+				PetDTO dto = new PetDTO(
+						pet.getId(),
+						pet.getPetName(),
+						pet.getPetBreed(),
+						pet.getPetKind(),
+						pet.getGender(),
+						pet.getOwner(),
+						ownerDto.name(),
+						ownerDto.cpf());
+			dtoList.add(dto);
+			}
+			return dtoList;
+		}
+
 }
