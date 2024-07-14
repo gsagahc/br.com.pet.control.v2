@@ -1,16 +1,11 @@
 package br.com.pet.control.model;
 
 import java.io.Serializable;
+import java.util.List;
 
+import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 
 @Getter
 @Setter
@@ -30,7 +25,8 @@ public class PermissionEntity implements GrantedAuthority, Serializable {
 	@Column
 	private String description;
 
-
+	@ManyToMany
+	private List<UserEntity> users;
 	@Override
 	public String getAuthority() {
 		return this.description;
