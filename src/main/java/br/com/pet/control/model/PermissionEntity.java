@@ -25,8 +25,10 @@ public class PermissionEntity implements GrantedAuthority, Serializable {
 	@Column
 	private String description;
 
+
 	@ManyToMany
 	private List<UserEntity> users;
+
 	@Override
 	public String getAuthority() {
 		return this.description;

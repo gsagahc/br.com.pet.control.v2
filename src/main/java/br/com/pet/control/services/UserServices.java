@@ -2,11 +2,13 @@ package br.com.pet.control.services;
 
 import br.com.pet.control.Application;
 import br.com.pet.control.dto.RegisterDTO;
+import br.com.pet.control.dto.UserDetailsDTO;
 import br.com.pet.control.model.UserEntity;
 import br.com.pet.control.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +31,18 @@ public class UserServices {
 			return true;
      	
    }
+	public UserDetailsDTO findByUserName(String login) {
+        UserEntity user = (UserEntity) userRepository.findByLogin(login);
+		UserDetailsDTO dto = new UserDetailsDTO(user.getLogin(),
+				                                user.getFullName(),
+				                                user.getAccountNonExpired(),
+				                                user.getAccountNonLocked(),
+				                                user.getCredentialsNonExpired(),
+				                                user.getEnabled(),
+				                                user.getPermissions());
+
+		return dto;
+	}
    public Boolean save(RegisterDTO data) {
 	   try {
 		  String encryptedPassword = new BCryptPasswordEncoder().encode(data.password());

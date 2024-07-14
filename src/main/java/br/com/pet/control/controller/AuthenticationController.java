@@ -1,9 +1,7 @@
 package br.com.pet.control.controller;
 
 
-import br.com.pet.control.dto.AuthenticationDTO;
-import br.com.pet.control.dto.LoginResponseDTO;
-import br.com.pet.control.dto.RegisterDTO;
+import br.com.pet.control.dto.*;
 import br.com.pet.control.logger.LogExecutionTime;
 import br.com.pet.control.model.PetEntity;
 import br.com.pet.control.model.UserEntity;
@@ -19,13 +17,11 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("auth")
@@ -39,7 +35,27 @@ public class AuthenticationController {
     private TokenService tokenService;
     @Autowired
     UserServices service;
-	
+
+    @GetMapping(value = "/{username}",
+            produces= MediaType.APPLICATION_JSON_VALUE)
+    @Operation(summary = "Find one user by id", description= "Find one user by id",
+
+            responses = {
+                    @ApiResponse(description ="Success", responseCode = "200", content = {@Content(
+                            mediaType = "application/json",
+                            array = @ArraySchema (schema = @Schema( implementation = PetEntity.class))
+                    )
+
+                    }),
+                    @ApiResponse(description ="Forbiden", responseCode = "403", content = @Content),
+                    @ApiResponse(description ="Bad Request", responseCode = "400", content = @Content),
+                    @ApiResponse(description ="Internal server error", responseCode = "500", content = @Content)
+            })
+    public UserDetailsDTO findByUserName(@PathVariable(value = "username") String username)
+    {
+
+        return service.findByUserName(username);
+    }
     @LogExecutionTime
     @PostMapping("/login")
     @Operation(summary = "Loggin on this application", description= "Loggin on this application",
