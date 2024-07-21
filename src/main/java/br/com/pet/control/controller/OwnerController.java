@@ -94,7 +94,7 @@ public class OwnerController {
 	@PutMapping(
 			   produces= MediaType.APPLICATION_JSON_VALUE,
 			   consumes =MediaType.APPLICATION_JSON_VALUE)
-	@Operation(summary = "Update a pet information", description= "Update a owner information",
+	@Operation(summary = "Update a owner information", description= "Update a owner information",
 
 			responses = {
 					@ApiResponse(description ="Success", responseCode = "200", content = {@Content(

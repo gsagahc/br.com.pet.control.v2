@@ -1,21 +1,21 @@
 package br.com.pet.control.services;
 
 import br.com.pet.control.Application;
-import br.com.pet.control.dto.PetDTO;
 import br.com.pet.control.dto.PetOwnerDTO;
 import br.com.pet.control.exceptions.ResourceNotFoundException;
 import br.com.pet.control.model.AddressEntity;
-import br.com.pet.control.model.PetEntity;
 import br.com.pet.control.model.PetOwnerEntity;
+import br.com.pet.control.repository.AddressRepository;
 import br.com.pet.control.repository.PetOwnerRepository;
-import br.com.pet.control.repository.PetRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -25,6 +25,8 @@ public class PetOwnerServices {
    
    @Autowired
    PetOwnerRepository petOwnerRepository;
+   @Autowired
+   AddressRepository addressRepository;
 
     
    public List<PetOwnerDTO> findAll() {
@@ -44,13 +46,9 @@ public class PetOwnerServices {
     	logger.info("Updating one pet! id:"+owner.getId()+" Name:"+owner.getName());
     	PetOwnerEntity entity = petOwnerRepository.findById(owner.getId())
      			.orElseThrow(()->new ResourceNotFoundException("Not records for ths id:"+owner.getId()));
-    	entity.setName(owner.getName());
-    	entity.setOwnerAddress(owner.getOwnerAddress());
-    	entity.setGender(owner.getGender());
-    	entity.setCpf(owner.getCpf());
-    	entity.setPhone_number(owner.getPhone_number());
-    	entity.setEmail(owner.getEmail());
-    	return petOwnerRepository.save(entity);
+		Optional<AddressEntity> address =  addressRepository.findById(owner.getOwnerAddress().getId());
+		BeanUtils.copyProperties(owner, entity, "id", "petList");
+		return petOwnerRepository.save(entity);
     	
     }
   

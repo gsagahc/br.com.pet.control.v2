@@ -10,6 +10,7 @@ import br.com.pet.control.repository.PetOwnerRepository;
 import br.com.pet.control.repository.PetRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -45,12 +46,8 @@ public class PetServices {
     	logger.info("Updating one pet! id:"+pet.getId()+" Name:"+pet.getPetName());
     	PetEntity entity = petRepository.findById(pet.getId())
      			.orElseThrow(()->new ResourceNotFoundException("Not records for ths id:"+pet.getId()));
-    	entity.setPetName(pet.getPetName());
-    	entity.setPetBreed(pet.getPetBreed());
-    	entity.setPetKind(pet.getPetKind());
-    	entity.setOwner(pet.getOwner());
-      	entity.setGender(pet.getGender());
-    	return petRepository.save(entity);
+		BeanUtils.copyProperties(pet, entity,"id");
+	   	return petRepository.save(entity);
     	
     }
   
