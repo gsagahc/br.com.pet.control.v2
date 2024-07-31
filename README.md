@@ -3,18 +3,12 @@
 ##API Rest with Spring Boot
 
 -Migrations
-
 -Relacionamentos: @OneToOne, @OneToMany, @ManyToOne
-
 -Swagger (http://localhost:8080/swagger-ui/index.html#/) (/v3/api-docs)
-
 -Authentication with JWT Token
-
 -Automatized testes with JUnit
-
 -Exception control
-
 -Loggin
-
 -Cache
+-File Upload/Download
 
