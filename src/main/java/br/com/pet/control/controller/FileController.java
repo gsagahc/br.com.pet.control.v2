@@ -32,7 +32,7 @@ public class FileController {
         var fileName = fileStorageService.storeFile(file);
         logger.info("Storing file to disk");
         String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path("/file/downloadfile")
+                .path("/file/downloadFile/")
                 .path(fileName)
                 .toUriString();
         return new UploadFileResponseDTO(fileName,fileDownloadUri,file.getContentType(),file.getSize());
