@@ -2,7 +2,10 @@ package br.com.pet.control.services;
 
 import br.com.pet.control.config.FileStorageConfig;
 import br.com.pet.control.exceptions.FileStorageException;
+import br.com.pet.control.exceptions.MyFileNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -18,6 +21,8 @@ import java.util.Objects;
 public class FileStorageService {
 
     private final Path fileStorageLocation;
+
+
     @Autowired
     public FileStorageService(FileStorageConfig fileStorageConfig){
          Path path = Paths.get(fileStorageConfig.getUploadDir())
@@ -44,6 +49,17 @@ public class FileStorageService {
         } catch (Exception e) {
             throw new FileStorageException(
                     "Cold not store file"+ fileName+". Please try again later", e);
+        }
+    }
+    public Resource loadFileAsResource(String fileName) {
+        try {
+            Path filePath =  this.fileStorageLocation.resolve(fileName);
+            Resource resource = new UrlResource(filePath.toUri());
+            if (resource.exists()) return resource;
+            else throw  new  MyFileNotFoundException("File not found !" + fileName);
+        } catch (Exception e){
+            throw new MyFileNotFoundException("File not found !" + fileName, e);
+
         }
     }
 }
