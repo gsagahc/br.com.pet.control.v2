@@ -20,3 +20,6 @@
 
 -File Upload/Download
 
+-Docker Compose (docker-compose.yml)
+Download Image :(docker pull gsagahc/petcontrolv2)
+
